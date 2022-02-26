@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class movement : MonoBehaviour
 {
-    Rigidbody2D body;
+    Rigidbody body;
 
     Animator animator;
 
@@ -16,7 +16,7 @@ public class movement : MonoBehaviour
 
     void Start()
     {
-        body = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
     }
 

@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         Rigidbody rigid = GetComponent<Rigidbody>();
-        rigid.AddForce(0, velocityUp,  velocityFront);
+        rigid.AddForce(velocityFront, velocityUp,  0);
     }
 
     // Update is called once per frame

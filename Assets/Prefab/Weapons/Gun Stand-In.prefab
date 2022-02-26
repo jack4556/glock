@@ -189,7 +189,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d636334f4d8cd5444b9cf3ef03528c4f, type: 2}
   gunBarrel: {fileID: 3978760985254823572}
   projectile: {fileID: 6801192636899166567, guid: 69a0b2a30a67bfa4785ea03d0a4a7d8f, type: 3}
-  reloadTime: 1
+  reloadTime: 2.5
   fullLoadSize: 8
   shotAmount: 0
   magSize: 8
