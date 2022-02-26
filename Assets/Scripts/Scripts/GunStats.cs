@@ -59,6 +59,9 @@ namespace GunGame.Guns
         public int carryAmmo;
         public bool unlimitedMag;
         public bool unlimitedStock;
+        public bool destroyOnEmpty;
+        public GameObject magazineObj;
+        public Transform magazineExit;
 
         [Header("Mechanism")]
         public int currentFireMode;
@@ -78,6 +81,7 @@ namespace GunGame.Guns
             // Reload Weapon
             if (Input.GetKeyDown(KeyCode.R) && !reloading && currentMag < fullLoadSize)
             {
+                
                 StartCoroutine(Reloading());
             }
             
@@ -204,6 +208,10 @@ namespace GunGame.Guns
         /// <returns></returns>
         IEnumerator Reloading()
         {
+            if (magazineObj != null || magazineExit != null)
+            {
+                Instantiate(magazineObj, magazineExit);
+            }
             reloading = true;
             //Wait reload time
             yield return new WaitForSeconds(reloadTime);
@@ -213,6 +221,8 @@ namespace GunGame.Guns
             yield return null;
         }
         #endregion
+
+       
     }
 
 

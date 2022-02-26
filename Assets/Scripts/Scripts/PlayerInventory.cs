@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Transactions;
 using UnityEngine;
 using UnityEngine.UI;
 using GunGame.Guns;
@@ -28,6 +29,9 @@ namespace GunGame.Inventory
         public Gun selectedGun;
         public Gun currentGun;
         public int gunIndex = 0;
+        public Gun[] gunsInArea;
+        public int areaIndex;
+       
 
         [Header("Utility")]
         public Camera cam;
@@ -50,9 +54,13 @@ namespace GunGame.Inventory
         #region Start
         private void Start()
         {
-          
+            foreach (Gun weapon in weapons)
+            {
+                currentCapacity += weapon.weight;
+            }
             UpdateCapacity();
             SetWeaponText();
+            ShowPickupText();
         }
         #endregion
         #region Update
@@ -82,10 +90,19 @@ namespace GunGame.Inventory
                 DetectWeaponRaycast();
             
            
+            if (Input.GetKeyDown(KeyCode.F) && selectedGun == true && selectedGun.weight + currentCapacity <= maxCapacity)
+            {
+                Debug.Log("Weapon Grab Attempted");
+                //Add the weapon to the inventory
+                PickupWeapon(selectedGun);
+                selectedGun = null;
 
+            }
+            DestroyWeapon();
 
         }
         #endregion
+        
         #region Switch Weapons
         /// <summary>
         /// The switching of the  one weapon to another
@@ -96,6 +113,7 @@ namespace GunGame.Inventory
             // If the gun index is about to exceed the count
             if(gunIndex >= weapons.Count -1)
             {
+                ReloadCancel();
                 if (!removingGun)
                 {
                     //Hide gun 1 
@@ -114,6 +132,7 @@ namespace GunGame.Inventory
             // If it isn't
             else
             {
+                ReloadCancel();
                 if (!removingGun)
                 {
                     //Hide gun 1 
@@ -132,6 +151,7 @@ namespace GunGame.Inventory
 
         }
         #endregion
+        
         #region Weapon Detection and Pickup
 
         private void DetectWeaponRaycast()
@@ -156,8 +176,22 @@ namespace GunGame.Inventory
         {
             if (pickupArea)
                 if (other.gameObject.GetComponent<Gun>())
-                
+                {
+                    selectedGun = other.gameObject.GetComponent<Gun>();
+                    
+                    Debug.Log("Weapon Pickup Detected");
+                    ShowPickupText();
+                }
+               
+                    
             
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (pickupArea)
+                if (other.gameObject.GetComponent<Gun>())
+                
+                    Debug.Log("Weapon Pickup Removed");
             ShowPickupText();
         }
 
@@ -179,12 +213,9 @@ namespace GunGame.Inventory
                     // Show propmt to pick up the weapon and the weight of the highlighted gun
                     pickupText.text = "Press F to pick up " + selectedGun.gunName + "\nWeight: " + selectedGun.weight;
 
-                    if (Input.GetKeyDown(KeyCode.F))
-                    {
-                        //Add the weapon to the inventory
-                        PickupWeapon(selectedGun);
-
-                    }
+                    Debug.Log("Prompt Added");
+                    
+                    
                 }
             }
             // if there is no gun, no prompt
@@ -201,6 +232,9 @@ namespace GunGame.Inventory
         /// <param name="weapon"> The weapon being picked up</param>
         void PickupWeapon(Gun weapon)
         {
+            
+            Debug.Log("Picked Up "+ selectedGun);
+            ReloadCancel();
             // If the player has a gun in hand, put it away
             if (currentGun)
             {
@@ -233,6 +267,7 @@ namespace GunGame.Inventory
         }
         #endregion
         #endregion
+        
         #region Drop Weapon
 
         /// <summary>
@@ -271,6 +306,28 @@ namespace GunGame.Inventory
             SetWeaponText();
         }
         #endregion
+        
+        #region Destroy Weapon
+
+        public void DestroyWeapon()
+        {
+            if (currentGun.destroyOnEmpty && currentGun.currentMag <= 0)
+            {
+                Debug.Log("Current Gun weight = " + currentGun.weight );
+                currentCapacity -= currentGun.weight;
+                Destroy(currentGun.gameObject);
+                weapons.Remove(currentGun);
+                UpdateCapacity();
+                SwitchWeapon(true);
+                SetWeaponText();
+                
+                Debug.Log(currentGun.gunName);
+            }
+            
+        }
+
+        #endregion
+        
         #region UI
         
         #region Set Weapon Text
@@ -300,6 +357,8 @@ namespace GunGame.Inventory
                 if(fireModeText.text != null)
                 fireModeText.text = currentGun.fireModes[currentGun.currentFireMode].modeName;
                 else NullWarning(fireModeText);
+                
+                
             }
             // If not, hide the appropriate hud elements
             else
@@ -385,6 +444,19 @@ namespace GunGame.Inventory
         
         #endregion
         #endregion
+
+        #region Reload Cancel
+
+        void ReloadCancel()
+        {
+            if (currentGun.reloading == true)
+            {
+                currentGun.reloading = false;
+            }
+        }
+
+        #endregion
+        
         #region Cam
         /// <summary>
         /// Attach the players camera

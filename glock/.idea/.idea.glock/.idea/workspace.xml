@@ -8,7 +8,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -24,7 +24,6 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="nodejs_package_manager_path" value="npm" />
     <property name="rider.run.widget.enabled.cache" value="false" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -61,9 +60,7 @@
       <workItem from="1645154552698" duration="1565000" />
       <workItem from="1645399825543" duration="14044000" />
       <workItem from="1645684345689" duration="3225000" />
-      <workItem from="1645746095244" duration="3391000" />
-      <workItem from="1645751049971" duration="18405000" />
-      <workItem from="1645835067330" duration="746000" />
+      <workItem from="1645746095244" duration="3803000" />
     </task>
     <servers />
   </component>
