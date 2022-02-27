@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2289330349204683831}
   - component: {fileID: 306789761063246961}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a4de4ed314c44845a70c528b3d53859, type: 2}
+  - {fileID: 2100000, guid: 23261ffcf00c02c47a77fc5de61c6a65, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd68968b1c7b1dc41a0d935d3c4bb4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityFront: 15
+  velocityFront: 20
   velocityUp: 0
   dmg: 1
 --- !u!54 &306789761063246961
@@ -120,7 +120,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463284214959275246}
   serializedVersion: 2
-  m_Mass: 0.05
+  m_Mass: 0.02
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
