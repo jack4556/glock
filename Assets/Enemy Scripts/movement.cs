@@ -5,6 +5,7 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     Rigidbody body;
+    public int health;
 
     Animator animator;
 

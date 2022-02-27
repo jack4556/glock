@@ -7,6 +7,7 @@ public class enemy1 : MonoBehaviour
     public GameObject fireBall;
     public float startTimeBTWShots;
     private Animator animator;
+    public int health;
 
    // private Animator animator;
     private float timeBTWShots;    // Start is called before the first frame update
