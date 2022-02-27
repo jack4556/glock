@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +16,17 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         Rigidbody rigid = GetComponent<Rigidbody>();
-        rigid.AddForce(velocityFront, velocityUp,  0);
+        rigid.AddRelativeForce(0, velocityUp,  velocityFront);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Destroy(this.gameObject);
     }
 }

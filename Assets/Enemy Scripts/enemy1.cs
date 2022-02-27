@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemy1 : MonoBehaviour
 {
     public GameObject fireBall;
+    public Transform fireExit;
     public float startTimeBTWShots;
     private Animator animator;
     public int health;
@@ -13,7 +14,7 @@ public class enemy1 : MonoBehaviour
     private float timeBTWShots;    // Start is called before the first frame update
     void Start()
     {
-        timeBTWShots = 2 + Random.Range(-1f, 1f);
+        timeBTWShots = 2 + Random.Range(-0.5f, 0.5f);
         animator = GetComponent<Animator>();
     }
 
@@ -22,11 +23,11 @@ public class enemy1 : MonoBehaviour
     {
         if (timeBTWShots <= 0)
         {
-            Vector2 pos = transform.position;
-            pos.x -= 0.5f;
+           // Vector2 pos = transform.position;
+           // pos.x -= 0.5f;
             animator.SetTrigger("Attack");
-            Instantiate(fireBall, pos, Quaternion.identity);
-            timeBTWShots = startTimeBTWShots + Random.Range(-1f, 1f);
+            Instantiate(fireBall, fireExit);
+            timeBTWShots = startTimeBTWShots + Random.Range(-0.5f, 0.5f);
 
         }
         else
